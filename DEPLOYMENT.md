@@ -124,6 +124,12 @@ If you need to add environment variables:
 - Bible cache and generated PDFs are stored in `/tmp` on Vercel
 - `/tmp` directory is ephemeral - files may be deleted between requests
 - This is normal for serverless - the app re-fetches Bible data as needed
+- Preset files use absolute paths with `process.cwd()` to work on Vercel
+
+**Presets not loading:**
+- Make sure the `public/presets/` directory and JSON files are committed to Git
+- Verify the `vercel.json` includes static file routing for `/presets/(.*)`
+- Check that preset files exist: `default.json`, `large-print.json`, `compact.json`, `book-6x9.json`, `ipad.json`
 
 ### Alternative: Deploy via Vercel GitHub Integration
 

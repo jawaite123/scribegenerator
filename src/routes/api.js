@@ -105,7 +105,8 @@ router.get('/presets/:name', async (req, res) => {
         return res.status(400).json({ error: 'Invalid preset name' });
     }
 
-    const presetPath = path.join('public', 'presets', `${name}.json`);
+    // Use absolute path from project root (works on Vercel)
+    const presetPath = path.join(process.cwd(), 'public', 'presets', `${name}.json`);
 
     try {
         const data = await fs.readFile(presetPath, 'utf-8');
@@ -113,6 +114,7 @@ router.get('/presets/:name', async (req, res) => {
         res.json(preset);
     } catch (error) {
         console.error('Preset load error:', error);
+        console.error('Attempted path:', presetPath);
         res.status(404).json({ error: 'Preset not found' });
     }
 });
