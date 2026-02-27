@@ -1,11 +1,70 @@
-MODULAR BIBLE TRANSCRIPTION WORKBOOK GENERATOR
+BIBLE TRANSCRIPTION WORKBOOK GENERATOR
 ==============================================
 
-This script generates custom handwriting transcription workbooks for any book
-of the Bible using the fetch.bible API.
+Generate custom handwriting transcription workbooks for any book of the Bible
+using the fetch.bible API.
 
-QUICK START
------------
+Now available as both a **Web Application** and a **CLI Tool**!
+
+===============================================================================
+WEB APPLICATION (RECOMMENDED)
+===============================================================================
+
+The web app provides an easy-to-use interface with live previews, presets,
+and background PDF generation with progress tracking.
+
+QUICK START - WEB APP
+---------------------
+1. Install dependencies:
+   npm install
+
+2. Start the server:
+   npm start
+
+3. Open your browser to:
+   http://localhost:3000
+
+4. Configure your workbook using the web interface:
+   - Select Bible book
+   - Choose preset (Default, Large Print, Compact, iPad)
+   - Customize page layout, fonts, line spacing, and more
+   - Click "Generate Workbook PDF"
+   - Watch progress and download when complete!
+
+DEPLOYMENT
+----------
+**Local Use:**
+Just run `npm start` and access at http://localhost:3000
+
+**Cloud Deployment (Vercel):**
+1. Install Vercel CLI: `npm install -g vercel`
+2. Run: `vercel deploy`
+3. Follow prompts to deploy
+
+**Cloud Deployment (Railway/Render):**
+1. Connect your Git repository
+2. Set build command: `npm install`
+3. Set start command: `npm start`
+4. Deploy!
+
+FEATURES
+--------
+- Beautiful Bootstrap UI with responsive design
+- Live progress tracking during PDF generation
+- Quick start presets (Default, Large Print, Compact, iPad)
+- All customization options from the CLI version
+- Background PDF generation
+- Automatic cleanup of old PDFs
+- No Python required!
+
+===============================================================================
+PYTHON CLI TOOL (ORIGINAL VERSION)
+===============================================================================
+
+For users who prefer command-line tools or need to automate generation.
+
+QUICK START - CLI
+-----------------
 1. Install requirements:
    pip install requests reportlab
 

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Workbook Generator</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">📖 Bible Workbook Generator</span>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                <!-- Intro Card -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Generate Custom Bible Transcription Workbooks</h5>
+                        <p class="card-text">
+                            Create personalized PDF workbooks for handwriting practice. Configure page layout,
+                            fonts, line spacing, and more. Perfect for Scripture memorization and transcription.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Presets -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">Quick Start Presets</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary" onclick="loadPreset('default')">Default</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="loadPreset('large-print')">Large Print</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="loadPreset('compact')">Compact</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="loadPreset('book-6x9')">6×9 Book</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="loadPreset('ipad')">iPad</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuration Form -->
+                <form id="generate-form">
+
+                    <!-- Bible Selection -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">1. Bible Book Selection</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="book" class="form-label">Book</label>
+                                    <select class="form-select" id="book" name="book" required>
+                                        <option value="mat">Matthew</option>
+                                        <option value="mrk">Mark</option>
+                                        <option value="luk">Luke</option>
+                                        <option value="jhn">John</option>
+                                        <option value="act">Acts</option>
+                                        <option value="rom">Romans</option>
+                                        <option value="1co">1 Corinthians</option>
+                                        <option value="2co">2 Corinthians</option>
+                                        <option value="gal">Galatians</option>
+                                        <option value="eph">Ephesians</option>
+                                        <option value="php">Philippians</option>
+                                        <option value="col">Colossians</option>
+                                        <option value="1th">1 Thessalonians</option>
+                                        <option value="2th">2 Thessalonians</option>
+                                        <option value="1ti">1 Timothy</option>
+                                        <option value="2ti">2 Timothy</option>
+                                        <option value="tit">Titus</option>
+                                        <option value="phm">Philemon</option>
+                                        <option value="heb">Hebrews</option>
+                                        <option value="jas">James</option>
+                                        <option value="1pe">1 Peter</option>
+                                        <option value="2pe">2 Peter</option>
+                                        <option value="1jn">1 John</option>
+                                        <option value="2jn">2 John</option>
+                                        <option value="3jn">3 John</option>
+                                        <option value="jud">Jude</option>
+                                        <option value="rev">Revelation</option>
+                                        <option value="gen">Genesis</option>
+                                        <option value="exo">Exodus</option>
+                                        <option value="psa">Psalms</option>
+                                        <option value="pro">Proverbs</option>
+                                        <option value="isa">Isaiah</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="bookName" class="form-label">Book Display Name</label>
+                                    <input type="text" class="form-control" id="bookName" name="bookName" value="Matthew" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page Layout -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">2. Page Layout</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Page Size</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pageSize" id="pageLetter" value="letter" checked>
+                                        <label class="form-check-label" for="pageLetter">US Letter (8.5" × 11")</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pageSize" id="pageA4" value="a4">
+                                        <label class="form-check-label" for="pageA4">A4 (8.27" × 11.69")</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pageSize" id="page6x9" value="6x9">
+                                        <label class="form-check-label" for="page6x9">6" × 9" (Book Size)</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pageSize" id="pageIpad" value="ipad">
+                                        <label class="form-check-label" for="pageIpad">iPad (7.3" × 9.7")</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="marginLeft" class="form-label">Left Margin: <span id="marginLeft-display">0.75"</span></label>
+                                    <input type="range" class="form-range" id="marginLeft" name="marginLeft" min="0.25" max="2" step="0.05" value="0.75" oninput="updateDisplay(this)">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="marginRight" class="form-label">Right Margin: <span id="marginRight-display">0.75"</span></label>
+                                    <input type="range" class="form-range" id="marginRight" name="marginRight" min="0.25" max="2" step="0.05" value="0.75" oninput="updateDisplay(this)">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="marginTop" class="form-label">Top Margin: <span id="marginTop-display">0.75"</span></label>
+                                    <input type="range" class="form-range" id="marginTop" name="marginTop" min="0.25" max="2" step="0.05" value="0.75" oninput="updateDisplay(this)">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="marginBottom" class="form-label">Bottom Margin: <span id="marginBottom-display">0.75"</span></label>
+                                    <input type="range" class="form-range" id="marginBottom" name="marginBottom" min="0.25" max="2" step="0.05" value="0.75" oninput="updateDisplay(this)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Spacing -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">3. Line Spacing</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="lineHeight" class="form-label">Line Height: <span id="lineHeight-display">0.30"</span></label>
+                                <input type="range" class="form-range" id="lineHeight" name="lineHeight" min="0.2" max="0.6" step="0.05" value="0.30" oninput="updateDisplay(this)">
+                                <small class="form-text text-muted">0.25" = tight, 0.30" = normal, 0.40" = loose</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Font Settings -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">4. Font Settings</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="verseLabelFont" class="form-label">Verse Label Font</label>
+                                    <select class="form-select" id="verseLabelFont" name="verseLabelFont">
+                                        <option value="Helvetica-Bold" selected>Helvetica Bold</option>
+                                        <option value="Helvetica">Helvetica</option>
+                                        <option value="Times-Bold">Times Bold</option>
+                                        <option value="Times-Roman">Times Roman</option>
+                                        <option value="Courier-Bold">Courier Bold</option>
+                                        <option value="Courier">Courier</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="verseLabelSize" class="form-label">Verse Label Size (pt)</label>
+                                    <input type="number" class="form-control" id="verseLabelSize" name="verseLabelSize" min="6" max="14" value="9">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="pageNumberFont" class="form-label">Page Number Font</label>
+                                    <select class="form-select" id="pageNumberFont" name="pageNumberFont">
+                                        <option value="Helvetica" selected>Helvetica</option>
+                                        <option value="Helvetica-Bold">Helvetica Bold</option>
+                                        <option value="Times-Roman">Times Roman</option>
+                                        <option value="Times-Bold">Times Bold</option>
+                                        <option value="Courier">Courier</option>
+                                        <option value="Courier-Bold">Courier Bold</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="pageNumberSize" class="form-label">Page Number Size (pt)</label>
+                                    <input type="number" class="form-control" id="pageNumberSize" name="pageNumberSize" min="6" max="14" value="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Appearance -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">5. Line Appearance</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="lineColor" class="form-label">Line Color</label>
+                                    <input type="color" class="form-control form-control-color" id="lineColor" name="lineColor" value="#b3b3b3">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lineWidth" class="form-label">Line Width: <span id="lineWidth-display">0.5</span></label>
+                                    <input type="range" class="form-range" id="lineWidth" name="lineWidth" min="0.1" max="2" step="0.1" value="0.5" oninput="updateDisplay(this)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Settings (Collapsible) -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <a class="text-decoration-none" data-bs-toggle="collapse" href="#advancedSettings">
+                                <h6 class="mb-0">6. Advanced Settings (Optional) ▼</h6>
+                            </a>
+                        </div>
+                        <div id="advancedSettings" class="collapse">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="charsPerLine" class="form-label">Characters per Line</label>
+                                        <input type="number" class="form-control" id="charsPerLine" name="charsPerLine" min="45" max="85" value="65">
+                                        <small class="form-text text-muted">55 = loose, 65 = normal, 75 = tight</small>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="wholeWordFactor" class="form-label">Whole Word Factor</label>
+                                        <input type="number" class="form-control" id="wholeWordFactor" name="wholeWordFactor" min="0.70" max="0.95" step="0.05" value="0.85">
+                                        <small class="form-text text-muted">Accounts for word wrapping. 0.85 = assumes 85% of line capacity is usable (words don't split mid-word)</small>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="verseLabelWidth" class="form-label">Verse Label Width: <span id="verseLabelWidth-display">0.8"</span></label>
+                                        <input type="range" class="form-range" id="verseLabelWidth" name="verseLabelWidth" min="0.3" max="1.5" step="0.1" value="0.8" oninput="updateDisplay(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Workbook PDF</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Modal -->
+    <div class="modal fade" id="progressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generating Workbook...</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="progress mb-3">
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <p id="progressStatus" class="text-center mb-0">Initializing...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/js/generator.js"></script>
+</body>
+</html>

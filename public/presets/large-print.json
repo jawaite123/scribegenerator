@@ -1,0 +1,19 @@
+{
+  "book": "mat",
+  "bookName": "Matthew",
+  "pageSize": "letter",
+  "marginLeft": 1.0,
+  "marginRight": 1.0,
+  "marginTop": 1.0,
+  "marginBottom": 1.0,
+  "lineHeight": 0.40,
+  "verseLabelFont": "Helvetica-Bold",
+  "verseLabelSize": 11,
+  "pageNumberFont": "Helvetica",
+  "pageNumberSize": 10,
+  "charsPerLine": 55,
+  "wholeWordFactor": 0.85,
+  "verseLabelWidth": 1.0,
+  "lineColor": "#b3b3b3",
+  "lineWidth": 0.6
+}
