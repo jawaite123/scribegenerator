@@ -119,6 +119,12 @@ If you need to add environment variables:
 - Redeploy after updating `vercel.json`
 - Check Vercel build logs to ensure `public/` directory is included
 
+**File system errors (ENOENT):**
+- The app automatically uses `/tmp` directory on Vercel (serverless environment)
+- Bible cache and generated PDFs are stored in `/tmp` on Vercel
+- `/tmp` directory is ephemeral - files may be deleted between requests
+- This is normal for serverless - the app re-fetches Bible data as needed
+
 ### Alternative: Deploy via Vercel GitHub Integration
 
 Instead of GitHub Actions, you can also use Vercel's built-in GitHub integration:

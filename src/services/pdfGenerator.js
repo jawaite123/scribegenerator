@@ -43,7 +43,17 @@ class WorkbookGenerator {
      * Main method - ported from create_workbook() lines 201-279
      */
     async createWorkbook(verseData, chapterCounts, taskId, bookName) {
-        const pdfPath = path.join('generated_pdfs', `${taskId}.pdf`);
+        // Use /tmp on Vercel (serverless), local directory otherwise
+        const pdfDir = process.env.VERCEL ? '/tmp/generated_pdfs' : 'generated_pdfs';
+
+        // Ensure directory exists
+        try {
+            await fs.promises.mkdir(pdfDir, { recursive: true });
+        } catch (error) {
+            // Directory already exists, ignore
+        }
+
+        const pdfPath = path.join(pdfDir, `${taskId}.pdf`);
 
         // Parse page size
         let pageSize = [

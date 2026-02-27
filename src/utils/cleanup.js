@@ -11,7 +11,11 @@ const path = require('path');
  * @param {string} directory - Directory containing PDFs
  * @param {number} maxAgeHours - Max age in hours before deletion
  */
-async function cleanupOldPDFs(directory = 'generated_pdfs', maxAgeHours = 24) {
+async function cleanupOldPDFs(directory, maxAgeHours = 24) {
+    // Use /tmp on Vercel (serverless), local directory otherwise
+    if (!directory) {
+        directory = process.env.VERCEL ? '/tmp/generated_pdfs' : 'generated_pdfs';
+    }
     try {
         const now = Date.now();
         const cutoff = now - (maxAgeHours * 60 * 60 * 1000);
@@ -57,14 +61,17 @@ async function cleanupOldPDFs(directory = 'generated_pdfs', maxAgeHours = 24) {
  * @param {number} maxAgeHours - Max age in hours before deletion
  */
 function startPeriodicCleanup(maxAgeHours = 24) {
+    // Use /tmp on Vercel (serverless), local directory otherwise
+    const pdfDir = process.env.VERCEL ? '/tmp/generated_pdfs' : 'generated_pdfs';
+
     const intervalMs = 60 * 60 * 1000;  // 1 hour
 
     // Run immediately
-    cleanupOldPDFs('generated_pdfs', maxAgeHours);
+    cleanupOldPDFs(pdfDir, maxAgeHours);
 
     // Then run every hour
     setInterval(() => {
-        cleanupOldPDFs('generated_pdfs', maxAgeHours);
+        cleanupOldPDFs(pdfDir, maxAgeHours);
     }, intervalMs);
 
     console.log(`Started periodic PDF cleanup (every 1 hour, max age: ${maxAgeHours} hours)`);

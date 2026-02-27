@@ -9,7 +9,11 @@ const path = require('path');
  */
 
 class BibleAPI {
-    constructor(cacheDir = 'bible_cache') {
+    constructor(cacheDir) {
+        // Use /tmp on Vercel (serverless), local directory otherwise
+        if (!cacheDir) {
+            cacheDir = process.env.VERCEL ? '/tmp/bible_cache' : 'bible_cache';
+        }
         this.cacheDir = cacheDir;
     }
 
