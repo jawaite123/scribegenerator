@@ -114,6 +114,11 @@ If you need to add environment variables:
 - Verify environment variables are set
 - Check that `vercel.json` configuration is correct
 
+**Static files (CSS/JS) return 404:**
+- Make sure you've committed the latest `vercel.json` with static file routing
+- Redeploy after updating `vercel.json`
+- Check Vercel build logs to ensure `public/` directory is included
+
 ### Alternative: Deploy via Vercel GitHub Integration
 
 Instead of GitHub Actions, you can also use Vercel's built-in GitHub integration:
